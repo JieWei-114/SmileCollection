@@ -1,15 +1,63 @@
+### IDE
+# IntelliJ
 *.iml
-.gradle
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/assetWizardSettings.xml
+.idea/navEditor.xml
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+
+### Gradle
+/.gradle/
+build/
+**/build/
+
+### Local config
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
 local.properties
+
+### Android Studio
+.idea/
+.DS_Store
+/captures/
+
+### Native
+.externalNativeBuild/
+.cxx/
+app/.cxx/
+OpenCV/.cxx/
+
+### Generated
+**/generated/
+**/intermediates/
+**/outputs/
+
+### Signing
+*.jks
+*.keystore
+
+### Misc
+*.log
+*.tmp
+*.bak
+
+### Android specific
+*.apk
+*.ap_ 
+*.aar
+*.keystore
+
+### IDE project files
+*.iml
+*.ipr
+*.iws
+
+### JetBrains
+out/
+
+### keep gradle wrapper
+!/gradle/wrapper/gradle-wrapper.jar
+
