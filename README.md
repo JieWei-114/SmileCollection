@@ -2,7 +2,7 @@
 
 A multi-module Android project that integrates OpenCV for face/smile detection. This repository contains an `app` Android application module and an `OpenCV` module (native/CMake and cascade resources).
 
-## Project structure**
+## Project structure
 
 - `app/`: Android application module (`AndroidManifest.xml`, `src/main/java/`, `res/`).
 - `OpenCV/`: OpenCV integration, native code, CMake, and `etc/haarcascades/` resources (e.g. `haarcascade_smile.xml`).
