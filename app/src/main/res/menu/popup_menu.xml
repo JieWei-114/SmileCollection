@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/flash"
+        android:title="Flash Light"
+        />
+
+    <item android:id="@+id/sd"
+        android:title="Smile detection"
+        />
+</menu>
+
