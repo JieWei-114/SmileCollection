@@ -24,9 +24,11 @@ sdk.dir=C:\Users\Acer\AppData\Local\Android\Sdk
 
 **Build & Run (Android Studio)**
 
-1. Open the project root in Android Studio.
-2. Let Gradle sync and install any missing SDK/NDK/CMake components when prompted.
-3. Select the `app` run configuration and click Run to install on an emulator or connected device.
+1. Clone repository
+2. Install Android Studio with SDK + NDK + CMake
+3. Open project in Android Studio
+4. Let Gradle sync and install missing components
+5. Connect device and Run `app` module
 
 **Native / OpenCV notes**
 
