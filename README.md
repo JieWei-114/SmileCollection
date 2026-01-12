@@ -43,4 +43,4 @@ sdk.dir=C:\Users\Acer\AppData\Local\Android\Sdk
 
 ## App screenshot
 
-![App screenshot](assets/screenshot.png)
+![App screenshot](assets/screenshot1.png) &nbsp;&nbsp; ![App screenshot](assets/screenshot2.png)
