@@ -139,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopup(view); // Call the showPopup() method to display the PopupMenu
+                // Call the showPopup() method to display the PopupMenu
+                showPopup(view); 
             }
         });
 
@@ -179,28 +180,24 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             inputStream.close();
             outputStream.close();
 
-            // Load the cascade file and display a toast on successful loading
             if (cascade.load(cascadeFile.getAbsolutePath())) {
-                // Display a toast indicating successful loading of haarcascade_frontalface_alt
                 if (rawResourceId == R.raw.haarcascade_frontalface_alt) {
                     runOnUiThread(() -> {
                         Toast.makeText(MainActivity.this, "Face cascade loaded successfully", Toast.LENGTH_SHORT).show();
                     });
                 }
-                // Display a toast indicating successful loading of haarcascade_smile
                 else if (rawResourceId == R.raw.haarcascade_smile) {
                     runOnUiThread(() -> {
                         Toast.makeText(MainActivity.this, "Smile cascade loaded successfully", Toast.LENGTH_SHORT).show();
                     });
                 }
             } else {
-                // Display a toast indicating failure in loading
                 runOnUiThread(() -> {
                     Toast.makeText(MainActivity.this, "Failed to load cascade", Toast.LENGTH_SHORT).show();
                 });
             }
 
-            cascadeFile.delete(); // Delete the temporary cascade file after loading
+            cascadeFile.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -220,14 +217,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 // Initialize ImageAnalysis globally
                 imageAnalysis = new ImageAnalysis.Builder()
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-                        .setTargetRotation(rotation) // Set the target rotation here
+                        .setTargetRotation(rotation)
                         .build();
 
                 Preview preview = new Preview.Builder().setTargetAspectRatio(aspectRatio).build();
 
                 CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(cameraFacing).build();
 
-                // Configure existing ImageCapture use case
                 ImageCapture.Builder imageCaptureBuilder = new ImageCapture.Builder()
                         .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
                         .setTargetRotation(getWindowManager().getDefaultDisplay().getRotation());
@@ -241,7 +237,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
                 cameraControl = camera.getCameraControl();
 
-                // Log binding event
                 Log.d("Camera", "ImageAnalysis bound to camera");
 
                 // Set the Preview surface provider
@@ -250,21 +245,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 // Set up Smile Detection using ImageAnalysis
                 configureSmileDetection(cameraProvider);
 
-
                 // Set capture OnClickListener
                 capture.setOnClickListener(view -> {
                     if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         // Request permission
                         ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE_REQUEST);
                     } else {
-                        // Permission already granted, proceed to take picture
                         takePicture(imageCapture);
                     }
                 });
 
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
-                // Handle camera setup failure here (e.g., display an error message)
             }
         }, ContextCompat.getMainExecutor(this));
     }
@@ -381,7 +373,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 final Bitmap bitmapFinal = bitmap;
 
                 runOnUiThread(() -> {
-                    // update overlay with faces (overlay will scale/multiply coordinates)
+                    // update overlay with faces
                     faceDetectionOverlay.updateOverlay(bitmapFinal);
                     faceDetectionOverlay.setFaces(facesArrayFinal);
 
@@ -393,7 +385,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     }
 
 
-                    // Auto-capture when smile detected and feature enabled (debounced)
+                    // Auto-capture when smile detected and feature enabled
                     if (isSmileDetectionEnabled && smileDetectedFinal && imageCapture != null) {
                         long now = System.currentTimeMillis();
                         if (now - lastAutoCaptureTime > 3000) { // 3s cooldown
@@ -431,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         imageCapture.takePicture(outputFileOptions, executorService, new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                // Display a toast message indicating the local path where the image is saved
+                // Display a message indicating the local path where the image is saved
                 runOnUiThread(() -> {
                     Toast.makeText(MainActivity.this, "Image saved at: " + file.getPath(), Toast.LENGTH_SHORT).show();
                 });
@@ -450,8 +442,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, menu);
-        popup.setOnMenuItemClickListener(this); // Set the activity as the listener
-        popup.inflate(R.menu.popup_menu); // Inflate the menu resource
+        popup.setOnMenuItemClickListener(this); 
+        popup.inflate(R.menu.popup_menu); 
         popup.show();
     }
 
@@ -460,10 +452,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         // Handle menu item clicks here
         switch (item.getItemId()) {
             case R.id.flash:
-                flash(cameraControl); // Call the flash method
+                flash(cameraControl); 
                 return true;
             case R.id.sd:
-                isSmileDetectionEnabled = !isSmileDetectionEnabled; // Toggle the flag
+                isSmileDetectionEnabled = !isSmileDetectionEnabled; 
                 Toast.makeText(this, isSmileDetectionEnabled ? "Smile detection enabled!" : "Smile detection disabled!", Toast.LENGTH_SHORT).show();
                 return true;
             default:
@@ -473,7 +465,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     private void flash(CameraControl cameraControl) {
         if (cameraFacing == CameraSelector.LENS_FACING_FRONT) {
-            // Display a toast indicating that flash is not available for the front camera
             Toast.makeText(this, "Flash not available for front camera", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -497,7 +488,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 // Permission granted, proceed to take picture
                 takePicture(imageCapture);
             } else {
-                // Permission denied, show a message or handle it accordingly
                 Toast.makeText(MainActivity.this, "Permission denied", Toast.LENGTH_SHORT).show();
             }
         }

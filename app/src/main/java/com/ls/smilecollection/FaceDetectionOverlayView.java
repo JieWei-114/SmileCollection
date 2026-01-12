@@ -20,12 +20,13 @@ public class FaceDetectionOverlayView extends View {
 
     public void updateOverlay(Bitmap bitmap) {
         this.bitmapToDraw = bitmap;
-        invalidate(); // Redraw the view
+        // Redraw the view
+        invalidate(); 
     }
 
     public void setFaces(Rect[] faces) {
         this.faces = faces;
-        invalidate(); // Redraw the view
+        invalidate();
     }
 
     @Override
