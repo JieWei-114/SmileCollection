@@ -40,3 +40,7 @@ sdk.dir=C:\Users\Acer\AppData\Local\Android\Sdk
 - "SDK not found" or missing build tools: create/update `local.properties` or install SDK components in Android Studio.
 - CMake/NDK errors: install the required versions via the SDK Manager and confirm `ndkVersion` in `app/build.gradle`.
 - App fails to build due to missing sources: verify `app/src/main/java/` contains your app code and package names match `AndroidManifest.xml`.
+
+## App screenshot
+
+![App screenshot](assets/screenshot.png)
